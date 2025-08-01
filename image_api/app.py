@@ -29,7 +29,9 @@ def create_app():
         return render_error_page('404.html'), 404
 
     def render_error_page(page_name):
-        """渲染错误页面"""
+        """
+        渲染错误页面
+        """
         misstatement_dir = os.path.join(app.config['THEME_DIR'], 'misstatement')
         page_path = os.path.join(misstatement_dir, page_name)
         
@@ -62,7 +64,8 @@ def create_app():
         
         if path == "" or not os.path.exists(full_path) or os.path.isdir(full_path):
             # 返回 index.html 用于前端路由
-            return send_from_directory(theme_dir, 'index.html')
+            # 如果有这样的需求可以改
+            return send_from_directory(theme_dir, '404.html')
         
         # 其他静态文件
         return send_from_directory(theme_dir, path)

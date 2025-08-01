@@ -4,7 +4,9 @@ from flask import current_app
 
 
 def get_image_types():
-    """获取所有图片类型"""
+    """
+    获取所有图片类型
+    """
     image_base = current_app.config['IMAGE_BASE']
     types = []
     for item in os.listdir(image_base):
@@ -13,7 +15,8 @@ def get_image_types():
     return sorted(types)
 
 def get_random_image_path(img_type, orientation=None):
-    """获取随机图片路径
+    """
+    获取随机图片路径
     
     Args:
         img_type (str): 图片类型
@@ -68,7 +71,8 @@ def get_random_image_path(img_type, orientation=None):
     return os.path.join(type_dir, selected_image), orientation
 
 def get_images_info(img_type, base_url=""):
-    """获取指定类型的图片信息
+    """
+    获取指定类型的图片信息
     
     Args:
         img_type (str): 图片类型
