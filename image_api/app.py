@@ -1,7 +1,7 @@
 from flask import Flask, send_from_directory, make_response, render_template_string, request
 from flask_cors import CORS
 from .config import IMAGE_BASE, ALLOWED_EXTENSIONS, THEME_DIR, LIMITER_BAPC
-from .routes import bp
+from .img.img_routes import bp
 import os
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
