@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, send_file, redirect, abort, current_app, request
-from .img_utils import *
-from ..config import STWQMC_NAME, STWQMC_VERSION
+from . import img_utils as utils
+from ..toml_config import STWQMC_NAME, STWQMC_VERSION
 import os
 
 
