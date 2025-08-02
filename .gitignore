@@ -1,5 +1,8 @@
 __pycache__/
+.vscode/
+
 *.jpg
 *.png
 *.jpeg
-*.md
+
+*.7z

@@ -1,16 +1,17 @@
 [app]
-name = "Random Image API Service"
-version = "0.4"
+name = "Random API Service"
+version = "0.6-alpha02"
 
 [extensions]
 allowed = ["png", "jpg", "jpeg", "gif", "webp"]
 
 [limiter]
+# 每个IP每分钟最多请求次数
 requests_per_minute = 120
 
 [paths]
 # 使用相对于项目根目录的路径
-base_dir = "image_api"
+base_dir = "var"
 project_root = "."
-theme_dir = "theme"
-image_base = "upur"
+theme_dir = "usr/theme"
+image_base = "usr/img"

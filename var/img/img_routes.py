@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from flask import Blueprint, jsonify, send_file, redirect, abort, current_app, request
 from . import img_utils as utils
 from ..toml_config import STWQMC_NAME, STWQMC_VERSION
@@ -126,3 +128,8 @@ def image_list(img_type):
         'type': img_type,
         'images': info
     })
+
+@bp.route('/api/img/count')
+def all_image_types_count():
+    count_info = utils.get_all_image_types_count()
+    return jsonify(count_info)

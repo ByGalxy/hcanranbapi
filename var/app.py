@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from flask import Flask, send_from_directory, make_response, render_template_string, request
 from flask_cors import CORS
 from .toml_config import IMAGE_BASE, ALLOWED_EXTENSIONS, THEME_DIR, LIMITER_BAPC

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 import random
 from flask import current_app
@@ -101,3 +103,24 @@ def get_images_info(img_type, base_url=""):
                         'size': os.path.getsize(file_path)
                     })
     return images
+
+def get_all_image_types_count():
+    """
+    获取所有类型的图片数量统计
+    """
+    image_base = current_app.config['IMAGE_BASE']
+    types = get_image_types()
+    
+    total_count = 0
+    type_counts = {}
+    
+    for img_type in types:
+        info = get_images_info(img_type)
+        type_count = len(info['horizontal']) + len(info['vertical'])
+        type_counts[img_type] = type_count
+        total_count += type_count
+    
+    return {
+        'types': type_counts,
+        'count': total_count
+    }
