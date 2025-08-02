@@ -6,7 +6,7 @@ from ..toml_config import STWQMC_NAME, STWQMC_VERSION
 import os
 
 
-bp = Blueprint('routes', __name__)
+bp = Blueprint('img_routes', __name__)
 
 @bp.route('/api')
 def api_status():

@@ -1,6 +1,6 @@
 [app]
 name = "Random API Service"
-version = "0.6-alpha02"
+version = "0.6-alpha03"
 
 [extensions]
 allowed = ["png", "jpg", "jpeg", "gif", "webp"]
@@ -15,3 +15,4 @@ base_dir = "var"
 project_root = "."
 theme_dir = "usr/theme"
 image_base = "usr/img"
+text_base = "usr/text"

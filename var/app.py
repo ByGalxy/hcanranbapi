@@ -2,8 +2,9 @@
 
 from flask import Flask, send_from_directory, make_response, render_template_string, request
 from flask_cors import CORS
-from .toml_config import IMAGE_BASE, ALLOWED_EXTENSIONS, THEME_DIR, LIMITER_BAPC
-from .img.img_routes import bp
+from .toml_config import IMAGE_BASE, TEXT_BASE, ALLOWED_EXTENSIONS, THEME_DIR, LIMITER_BAPC
+from .img.img_routes import bp as img_bp
+from .text.text_routes import bp as text_bp
 import os
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -15,11 +16,13 @@ def create_app():
     # 配置设置
     app.config.update({
         'IMAGE_BASE': IMAGE_BASE,
+        'TEXT_BASE': TEXT_BASE,
         'ALLOWED_EXTENSIONS': ALLOWED_EXTENSIONS,
         'THEME_DIR': THEME_DIR
     })
     
-    app.register_blueprint(bp)
+    app.register_blueprint(img_bp)
+    app.register_blueprint(text_bp)
     
     # 自定义错误处理器
     @app.errorhandler(429)
