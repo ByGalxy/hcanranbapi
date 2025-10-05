@@ -1,8 +1,9 @@
-# -*- coding: utf-8 -*-
 """
+-*- coding: utf-8 -*-
+
 比起写代码，我更喜欢你~~~~
 
-怎么可能有报错嘛！！！（）
+怎么可能有报错嘛！！！()
 No error messages should appear !!! ()
 
 ⣇⣿⠘⣿⣿⣿⡿⡿⣟⣟⢟⢟⢝⠵⡝⣿⡿⢂⣼⣿⣷⣌⠩⡫⡻⣝⠹⢿⣿⣷
@@ -22,10 +23,14 @@ No error messages should appear !!! ()
 """
 
 
-from var import create_app
+
+from flask import Flask
+from var.Inits import Init_module
 
 
-app = create_app()
+
+app = Flask(__name__)
+Init_module(app)
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(port=5000, debug=True, threaded=True)

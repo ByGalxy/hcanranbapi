@@ -1,6 +1,6 @@
 [app]
-name = "Random API Service"
-version = "0.6-alpha03"
+name = "hcanranbapi"
+version = "0.7"
 
 [extensions]
 allowed = ["png", "jpg", "jpeg", "gif", "webp"]

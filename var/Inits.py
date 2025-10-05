@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-
-from flask import Flask, send_from_directory, make_response, render_template_string, request
+from flask import send_from_directory, request
 from flask_cors import CORS
 from .toml_config import IMAGE_BASE, TEXT_BASE, ALLOWED_EXTENSIONS, THEME_DIR, LIMITER_BAPC
 from .img.img_routes import bp as img_bp
@@ -9,30 +8,9 @@ import os
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
-def create_app():
-    app = Flask(__name__)
-    CORS(app)
-    
-    # 配置设置
-    app.config.update({
-        'IMAGE_BASE': IMAGE_BASE,
-        'TEXT_BASE': TEXT_BASE,
-        'ALLOWED_EXTENSIONS': ALLOWED_EXTENSIONS,
-        'THEME_DIR': THEME_DIR
-    })
-    
-    app.register_blueprint(img_bp)
-    app.register_blueprint(text_bp)
-    
-    # 自定义错误处理器
-    @app.errorhandler(429)
-    def ratelimit_handler(e):
-        return render_error_page('429.html'), 429
-    
-    @app.errorhandler(404)
-    def page_not_found(e):
-        return render_error_page('404.html'), 404
 
+
+def Init_module(app):
     def render_error_page(page_name):
         """
         渲染错误页面
@@ -50,9 +28,18 @@ def create_app():
         base_url = request.host_url.rstrip('/')
         content = content.replace('href="/', f'href="{base_url}/')
         content = content.replace('src="/', f'src="{base_url}/')
-        
-        return content
     
+
+    def redis_limiter_memory():
+        # 初始化限流器，使用内存存储
+        limiter = Limiter(
+            key_func=get_remote_address,
+            app=app,
+            default_limits=[f"{LIMITER_BAPC}/minute"],
+            storage_uri="memory://"
+        )
+
+
     # 服务前端静态文件（包括错误页面）
     @app.route('/', defaults={'path': ''})
     @app.route('/<path:path>')
@@ -70,20 +57,34 @@ def create_app():
         if path == "" or not os.path.exists(full_path) or os.path.isdir(full_path):
             # 返回 index.html 用于前端路由
             # 如果有这样的需求可以改
-            return send_from_directory(theme_dir, '404.html')
+            return send_from_directory(misstatement_dir, 'index.html')
         
         # 其他静态文件
         return send_from_directory(theme_dir, path)
 
-    def redis_limiter_memory():
-        # 初始化限流器，使用内存存储
-        limiter = Limiter(
-            key_func=get_remote_address,
-            app=app,
-            default_limits=[f"{LIMITER_BAPC}/minute"],
-            storage_uri="memory://"
-        )
 
+    # 配置设置
+    app.config.update({
+        'IMAGE_BASE': IMAGE_BASE,
+        'TEXT_BASE': TEXT_BASE,
+        'ALLOWED_EXTENSIONS': ALLOWED_EXTENSIONS,
+        'THEME_DIR': THEME_DIR
+    })
+
+    # 自定义错误处理器
+    @app.errorhandler(429)
+    def ratelimit_handler(e):
+        return render_error_page('429.html'), 429
+    
+    @app.errorhandler(404)
+    def page_not_found(e):
+        return render_error_page('404.html'), 404
+    
+    CORS(app)
+    
+    app.register_blueprint(img_bp)
+    app.register_blueprint(text_bp)
+    
     redis_limiter_memory()
     
     return app
