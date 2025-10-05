@@ -42,10 +42,31 @@ def Init_module(app):
     )
 
 
-    # 服务前端静态文件（包括错误页面）
-    @app.route('/', defaults={'path': ''})
+    # 服务首页
+    @app.route('/')
+    def serve_home():
+        theme_dir = app.config['THEME_DIR']
+        misstatement_dir = os.path.join(theme_dir, 'misstatement')
+        return send_from_directory(misstatement_dir, 'index.html')
+    
+    # 服务帮助页面
+    @app.route('/help')
+    def serve_help():
+        theme_dir = app.config['THEME_DIR']
+        misstatement_dir = os.path.join(theme_dir, 'misstatement')
+        help_page_path = os.path.join(misstatement_dir, 'help.html')
+        
+        # 检查帮助页面是否存在
+        if os.path.exists(help_page_path) and os.path.isfile(help_page_path):
+            return send_from_directory(misstatement_dir, 'help.html')
+        else:
+            # 如果帮助页面不存在，返回404错误页面
+            return send_from_directory(misstatement_dir, '404.html'), 404
+    
+
+    # 服务错误页面
     @app.route('/<path:path>')
-    def serve_frontend(path):
+    def serve_error_pages(path):
         theme_dir = app.config['THEME_DIR']
         misstatement_dir = os.path.join(theme_dir, 'misstatement')
         
@@ -53,15 +74,15 @@ def Init_module(app):
         if path in ['429.html', '404.html', '500.html']:
             return send_from_directory(misstatement_dir, path)
         
-        # 检查请求的路径是否存在
-        full_path = os.path.join(theme_dir, path)
-        
-        if path == "" or not os.path.exists(full_path) or os.path.isdir(full_path):
-            return send_from_directory(misstatement_dir, 'index.html')
-        
         # 其他静态文件
-        return send_from_directory(theme_dir, path)
+        full_path = os.path.join(theme_dir, path)
+        if os.path.exists(full_path) and not os.path.isdir(full_path):
+            return send_from_directory(theme_dir, path)
+        
+        # 如果文件不存在，返回404页面
+        return send_from_directory(misstatement_dir, '404.html'), 404
     
+
     @app.route('/css/<path:filename>')
     @limiter.exempt
     def admin_assess_css(filename):
@@ -69,13 +90,13 @@ def Init_module(app):
         misstatement_dir = os.path.join(theme_dir, 'misstatement')
         return send_from_directory(f'{misstatement_dir}/asses/css/', filename)
 
+
     @app.route('/js/<path:filename>')
     @limiter.exempt
     def admin_assess_js(filename):
         theme_dir = app.config['THEME_DIR']
         misstatement_dir = os.path.join(theme_dir, 'misstatement')
         return send_from_directory(f'{misstatement_dir}/asses/js/', filename)
-
 
     # 配置设置
     app.config.update({

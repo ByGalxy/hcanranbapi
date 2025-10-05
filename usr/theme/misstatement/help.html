@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>帮助 - 随机图片API服务</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/misstatement.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- 左侧导航 -->
+        <div class="sidebar">
+            <div class="nav-links">
+                <div class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>图片</span>
+                </div>
+                <div class="nav-item active">
+                    <i class="fas fa-question-circle"></i>
+                    <span>帮助</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主内容区域 -->
+        <div class="main-content">
+            <!-- 头部 -->
+            <div class="header">
+                <h1>hcanranbapi - 帮助中心</h1>
+                <div class="tabs">
+                    <div class="tab active">指南</div>
+                    <div class="tab">说明</div>
+                    <div class="tab">问题</div>
+                </div>
+            </div>
+
+            <!-- 帮助内容卡片 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-question-circle"></i>
+                        使用指南
+                    </div>
+                </div>
+
+                <div class="help-section">
+                    <h3><i class="fas fa-mouse-pointer"></i> 快速开始</h3>
+                    <p>欢迎使用我们的API服务! </p>
+                    <ol>
+                        <li>你可以使用我们的api()</li>
+                        <li>禁止拿api干违法的事情</li>
+                        <li>这里没有你想看的瑟图()</li>
+                        <li>不要攻击网站</li>
+                    </ol>
+                </div>
+
+                <div class="help-section">
+                    <h3><i class="fas fa-code"></i> API调用</h3>
+                    <p>我们把api调用方式展示了出来, 你可以拿去调用</p>
+                </div>
+            </div>
+
+            <!-- API说明卡片 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-book"></i>
+                        说明
+                    </div>
+                </div>
+                <p>本人有点懒, 没写() 骗你的,我还没想出来</p>
+                
+            </div>
+
+            <!-- 常见问题卡片 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-question-circle"></i>
+                        常见问题
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <h4><i class="fas fa-chevron-right"></i> 如何获取特定类型的图片?</h4>
+                    <p>在API调用中将&lt;type&gt;替换为您需要的图片类型名称,例如:/random_image/Genshin_Impact</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4><i class="fas fa-chevron-right"></i> 支持哪些图片类型?</h4>
+                    <p>您可以通过访问 /api/img/types 接口获取所有支持的图片类型列表。</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4><i class="fas fa-chevron-right"></i> 图片API有调用限制吗?</h4>
+                    <p>为了保证服务质量,我们对API调用频率进行了限制。默认情况下,每个IP每分钟最多可调用60次。木有钱。</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4><i class="fas fa-chevron-right"></i> 如何在网页中直接显示图片?</h4>
+                    <p>您可以直接将图片API的URL用作img标签的src属性:
+                        <code>&lt;img src="XXX" alt="随机图片"&gt;</code>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 状态显示区域 -->
+        <div id="status" class="status"></div>
+    </div>
+
+    <script src="/js/misstatement.js"></script>
+</body>
+
+</html>

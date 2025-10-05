@@ -13,13 +13,16 @@
     <div class="container">
         <!-- 左侧导航 -->
         <div class="sidebar">
-
             <div class="nav-links">
                 <div class="nav-item active">
                     <i class="fas fa-home"></i>
-                    <span>控制台</span>
+                    <span>图片</span>
                 </div>
                 <div class="nav-item">
+                    <i class="fas fa-question-circle"></i>
+                    <span>帮助</span>
+                </div>
+                <!-- <div class="nav-item">
                     <i class="fas fa-book"></i>
                     <span>text1</span>
                 </div>
@@ -30,28 +33,19 @@
                 <div class="nav-item">
                     <i class="fas fa-cog"></i>
                     <span>text3</span>
-                </div>
-                <div class="nav-item">
-                    <i class="fas fa-question-circle"></i>
-                    <span>text4</span>
-                </div>
+                </div> -->
             </div>
         </div>
-
-        <!-- 主内容区域 -->
         <div class="main-content">
-            <!-- 头部 -->
             <div class="header">
                 <h1>hcanranbapi</h1>
                 <div class="tabs">
-                    <div class="tab active">控制台</div>
+                    <div class="tab active">控制</div>
                     <div class="tab">文档</div>
                     <div class="tab">统计</div>
-                    <div class="tab">设置</div>
                 </div>
             </div>
 
-            <!-- API控制台卡片 -->
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
@@ -97,7 +91,6 @@
                 <div id="status" class="status"></div>
             </div>
 
-            <!-- 文档和统计卡片 -->
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
@@ -124,9 +117,23 @@
                     <li class="endpoint">
                         <div class="endpoint-header">
                             <span class="method get">GET</span>
+                            <span class="url">/api/img/count</span>
+                        </div>
+                        <div class="description">获取所有类型的图片数量统计</div>
+                    </li>
+                    <li class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="url">/api/img/&lt;type&gt;/count</span>
+                        </div>
+                        <div class="description">获取指定类型的图片数量统计</div>
+                    </li>
+                    <li class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
                             <span class="url">/random_image/&lt;type&gt;</span>
                         </div>
-                        <div class="description">直接返回随机图片 (二进制流)</div>
+                        <div class="description">直接返回随机图片(二进制流)</div>
                     </li>
                     <li class="endpoint">
                         <div class="endpoint-header">
@@ -140,17 +147,12 @@
                             <span class="method get">GET</span>
                             <span class="url">/random_image/g/&lt;type&gt;</span>
                         </div>
-                        <div class="description">重定向到图片URL (302)</div>
-                    </li>
-                    <li class="endpoint">
-                        <div class="endpoint-header">
-                            <span class="method get">GET</span>
-                            <span class="url">/api/img/&lt;type&gt;/count</span>
-                        </div>
-                        <div class="description">获取指定类型的图片数量统计</div>
+                        <div class="description">重定向到图片URL(302)</div>
                     </li>
                 </ul>
+            </div>
 
+            <div class="card">
                 <h3 style="margin: 20px 0 10px; color: var(--twitter-blue);">
                     <i class="fas fa-server"></i> 服务状态
                 </h3>
@@ -170,11 +172,6 @@
             </div>
         </div>
     </div>
-
-    <!-- 浮动按钮 -->
-    <button class="floating-btn" id="refresh-btn">
-        <i class="fas fa-sync-alt"></i>
-    </button>
 
     <script src="/js/misstatement.js"></script>
 </body>
