@@ -28,16 +28,18 @@ def Init_module(app):
         base_url = request.host_url.rstrip('/')
         content = content.replace('href="/', f'href="{base_url}/')
         content = content.replace('src="/', f'src="{base_url}/')
+        
+        return content
     
 
-    def redis_limiter_memory():
-        # 初始化限流器，使用内存存储
-        limiter = Limiter(
-            key_func=get_remote_address,
-            app=app,
-            default_limits=[f"{LIMITER_BAPC}/minute"],
-            storage_uri="memory://"
-        )
+
+    # 初始化限流器，使用内存存储
+    limiter = Limiter(
+        key_func=get_remote_address,
+        app=app,
+        default_limits=[f"{LIMITER_BAPC}/minute"],
+        storage_uri="memory://"
+    )
 
 
     # 服务前端静态文件（包括错误页面）
@@ -55,12 +57,24 @@ def Init_module(app):
         full_path = os.path.join(theme_dir, path)
         
         if path == "" or not os.path.exists(full_path) or os.path.isdir(full_path):
-            # 返回 index.html 用于前端路由
-            # 如果有这样的需求可以改
             return send_from_directory(misstatement_dir, 'index.html')
         
         # 其他静态文件
         return send_from_directory(theme_dir, path)
+    
+    @app.route('/css/<path:filename>')
+    @limiter.exempt
+    def admin_assess_css(filename):
+        theme_dir = app.config['THEME_DIR']
+        misstatement_dir = os.path.join(theme_dir, 'misstatement')
+        return send_from_directory(f'{misstatement_dir}/asses/css/', filename)
+
+    @app.route('/js/<path:filename>')
+    @limiter.exempt
+    def admin_assess_js(filename):
+        theme_dir = app.config['THEME_DIR']
+        misstatement_dir = os.path.join(theme_dir, 'misstatement')
+        return send_from_directory(f'{misstatement_dir}/asses/js/', filename)
 
 
     # 配置设置
@@ -84,7 +98,5 @@ def Init_module(app):
     
     app.register_blueprint(img_bp)
     app.register_blueprint(text_bp)
-    
-    redis_limiter_memory()
     
     return app
