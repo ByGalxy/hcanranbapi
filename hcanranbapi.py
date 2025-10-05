@@ -33,4 +33,4 @@ app = Flask(__name__)
 Init_module(app)
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True, threaded=True)
+    app.run(host='0.0.0.0', port=5000, debug=True, threaded=True)
