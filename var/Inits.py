@@ -7,10 +7,14 @@ from .text.text_routes import bp as text_bp
 import os
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 
 
 def Init_module(app):
+    # 添加ProxyFix中间件以正确获取客户端真实IP, 告诉Flask应用信任1层代理
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
+    
     def render_error_page(page_name):
         """
         渲染错误页面

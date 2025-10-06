@@ -56,3 +56,11 @@ proc_name = "hcanranbapi"
 
 # 预加载应用，减少内存使用和启动时间
 preload_app = True
+
+# 代理配置 - 信任所有代理IP
+forwarded_allow_ips = '*'  # 或者指定具体的代理IP，如 '127.0.0.1,10.0.0.1'
+
+# 安全头部配置
+secure_scheme_headers = {
+    'X-FORWARDED-PROTO': 'https'
+}
